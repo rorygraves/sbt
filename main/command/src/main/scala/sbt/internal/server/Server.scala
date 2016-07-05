@@ -6,7 +6,6 @@ package internal
 package server
 
 import java.net.{ SocketTimeoutException, InetAddress, ServerSocket }
-import java.util.concurrent.ConcurrentLinkedQueue
 import java.util.concurrent.atomic.AtomicBoolean
 import sbt.util.Logger
 

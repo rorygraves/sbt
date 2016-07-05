@@ -7,7 +7,6 @@ package server
 
 import org.json4s.JsonAST.{ JArray, JString }
 import org.json4s._
-import org.json4s.JsonDSL._
 import org.json4s.native.JsonMethods._
 import org.json4s.ParserUtil.ParseException
 
@@ -36,6 +35,7 @@ object Serialization {
       JObject(
         "type" -> JString("status_event"),
         "status" -> JString("processing"),
+        "command" -> JString(command),
         "command_queue" -> JArray(commandQueue.map(JString).toList)
       )
 
@@ -58,7 +58,7 @@ object Serialization {
       (json \ "type").toOption match {
         case Some(JString("exec")) =>
           (json \ "command_line").toOption match {
-            case Some(JString(cmd)) => Right(Execution(cmd))
+            case Some(JString(cmd)) => Right(Execution(cmd, ""))
             case _                  => Left("Missing or invalid command_line field")
           }
         case Some(cmd) => Left(s"Unknown command type $cmd")

@@ -15,7 +15,7 @@ private[sbt] final class NetworkChannel extends CommandChannel {
       }
       def onCommand(command: internal.server.Command): Unit = {
         command match {
-          case Execution(cmd) => append(Exec(CommandSource.Network, cmd))
+          case Execution(cmd, id) => append(Exec(CommandSource.Network, cmd, Some(id)))
         }
       }
       server match {

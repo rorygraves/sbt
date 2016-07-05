@@ -11,7 +11,7 @@ import com.typesafe.tools.mima.plugin.MimaPlugin.mimaDefaultSettings
 // but can be shared across the multi projects.
 def buildLevelSettings: Seq[Setting[_]] = inThisBuild(Seq(
   organization := "org.scala-sbt",
-  version := "1.0.0-SNAPSHOT",
+  version := "1.0.2-SNAPSHOT",
   bintrayOrganization := Some(if (publishStatus.value == "releases") "typesafe" else "sbt"),
   bintrayRepository := s"ivy-${publishStatus.value}",
   bintrayPackage := "sbt",
@@ -42,8 +42,9 @@ def commonSettings: Seq[Setting[_]] = Seq[SettingsDefinition](
 ) flatMap (_.settings)
 
 def minimalSettings: Seq[Setting[_]] =
-  commonSettings ++ customCommands ++
-  publishPomSettings ++ Release.javaVersionCheckSettings
+  commonSettings ++ customCommands
+// ++
+//  publishPomSettings ++ Release.javaVersionCheckSettings
 
 def baseSettings: Seq[Setting[_]] =
   minimalSettings ++ Seq(projectComponent) ++ baseScalacOptions ++ Licensed.settings ++ Formatting.settings

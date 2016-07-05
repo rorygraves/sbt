@@ -188,10 +188,10 @@ object BasicCommands {
   def server = Command.command(Server, Help.more(Server, ServerDetailed)) { s0 =>
     val exchange = State.exchange
     val s1 = exchange.run(s0)
-    exchange.publishStatus(CommandStatus(s0, true), None)
-    val Exec(source, line) = exchange.blockUntilNextExec
+    exchange.publishStatus(CommandStatus(s0, canEnter = true), None)
+    val Exec(source, line, optId) = exchange.blockUntilNextExec
     val newState = s1.copy(onFailure = Some(Server), remainingCommands = line +: Server +: s1.remainingCommands).setInteractive(true)
-    exchange.publishStatus(CommandStatus(newState, false), Some(source))
+    exchange.publishStatus(CommandStatus(newState, canEnter = false), Some(source))
     if (line.trim.isEmpty) newState
     else newState.clearGlobalLog
   }

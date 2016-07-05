@@ -47,7 +47,8 @@ abstract class ClientConnection(connection: Socket) {
         }
 
       } finally {
-        shutdown()
+        println("Connection thread complete calling shutdown")
+        XXXShutdown()
       }
     }
   }
@@ -61,8 +62,8 @@ abstract class ClientConnection(connection: Socket) {
 
   def onCommand(command: Command): Unit
 
-  def shutdown(): Unit = {
-    println("Shutting down client connection")
+  def XXXShutdown(): Unit = {
+    println("XXXShutting down client connection")
     running.set(false)
     out.close()
   }

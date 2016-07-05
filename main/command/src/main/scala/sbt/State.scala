@@ -186,9 +186,9 @@ object State {
     def process(f: (String, State) => State): State =
       s.remainingCommands match {
         case Seq() => exit(true)
-        case Seq(x, xs @ _*) =>
-          log.debug(s"> $x")
-          f(x, s.copy(remainingCommands = xs, history = x :: s.history))
+        case Seq(command, xs @ _*) =>
+          log.debug(s"> $command")
+          f(command, s.copy(remainingCommands = xs, history = command :: s.history))
       }
     def :::(newCommands: Seq[String]): State = s.copy(remainingCommands = newCommands ++ s.remainingCommands)
     def ::(command: String): State = (command :: Nil) ::: this

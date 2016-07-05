@@ -20,7 +20,7 @@ abstract class CommandChannel {
   def shutdown(): Unit
 }
 
-case class Exec(source: CommandSource, commandLine: String)
+case class Exec(source: CommandSource, commandLine: String, id: Option[String] = None)
 
 sealed trait CommandSource
 object CommandSource {

@@ -23,4 +23,10 @@ private[sbt] final case class ExecutionEvent(command: String, success: Boolean) 
 
 private[sbt] sealed trait Command
 
-private[sbt] final case class Execution(cmd: String) extends Command
+/**
+ * An execution request - command line is the same as typed in at the command prompt
+ * e.g. { "type": "exec", "command_line": "compile", "id": "29bc9b"  }
+ * @param cmd
+ * @param id Client generated unique id, related response events will carry this id.
+ */
+private[sbt] final case class Execution(cmd: String, id: String) extends Command
